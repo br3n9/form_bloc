@@ -7,7 +7,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/src/dropdown.dart';
 import 'package:flutter_form_bloc/src/utils/utils.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:form_bloc/form_bloc.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -87,14 +86,11 @@ class _DropdownFieldBlocBuilderMobileState<Value>
 
   double? _dropdownHeight = 0;
 
-  late StreamSubscription<bool> _keyboardSubscription;
-
   bool? _isKeyboardVisible;
 
   FocusNode _focusNode = FocusNode();
 
   bool _focusedAfterKeyboardClosing = false;
-  var keyboardVisibilityController = KeyboardVisibilityController();
 
   @override
   void initState() {
@@ -114,15 +110,6 @@ class _DropdownFieldBlocBuilderMobileState<Value>
 
     _effectiveFocusNode.addListener(_onFocusRequest);
 
-    _isKeyboardVisible = keyboardVisibilityController.isVisible;
-
-    _keyboardSubscription =
-        keyboardVisibilityController.onChange.listen((bool visible) {
-      setState(() {
-        _isKeyboardVisible = visible;
-        print(_isKeyboardVisible);
-      });
-    });
   }
 
   @override
@@ -133,8 +120,6 @@ class _DropdownFieldBlocBuilderMobileState<Value>
     _effectiveFocusNode.removeListener(_onFocusRequest);
 
     _focusNode.dispose();
-
-    _keyboardSubscription.cancel();
 
     super.dispose();
   }
