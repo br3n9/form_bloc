@@ -90,13 +90,21 @@ class _DropdownFieldBlocBuilderWebState<Value>
   void initState() {
     super.initState();
 
-    SchedulerBinding.instance!.addPostFrameCallback((_) => setState(() {}));
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+        if(mounted){
+          setState(() {});
+        }
+      });
 
     _dropdownHeightController.listen((height) {
       SchedulerBinding.instance!.addPostFrameCallback((_) {
-        setState(() {
-          _dropdownHeight = height;
-        });
+        if(mounted){
+          setState(() {
+            _dropdownHeight = height;
+          });
+        }
+
+        
       });
     });
 

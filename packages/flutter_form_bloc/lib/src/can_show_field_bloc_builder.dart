@@ -64,7 +64,10 @@ class _CanShowFieldBlocBuilderState extends State<CanShowFieldBlocBuilder>
           .contains(widget.fieldBloc) as bool?;
     }
     _initAnimation();
-    setState(() {});
+
+    if(mounted){
+      setState(() {});
+    }
     try {
       await Rx.merge([
         Stream.value(bloc.state),

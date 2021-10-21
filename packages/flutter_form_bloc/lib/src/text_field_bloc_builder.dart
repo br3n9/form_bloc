@@ -779,9 +779,12 @@ class _TextFieldBlocBuilderState extends State<TextFieldBlocBuilder> {
                       ? widget.obscureTextTrueIcon
                       : widget.obscureTextFalseIcon,
                   onTap: () {
-                    setState(() {
-                      _obscureText = !_obscureText!;
-                    });
+
+                    if(mounted){
+                      setState(() {
+                        _obscureText = !_obscureText!;
+                      });
+                    }
                   }),
             );
           }
